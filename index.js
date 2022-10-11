@@ -15,8 +15,31 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+    this.name = name,
+    this.age = age
+    this.stomach = []
+// this.name and this.age are parameter instances that will have arguments passed through
+// this.stomach is the instance that creates the empty array
+}
 
+Person.prototype.eat = function(edible){
+// Here we are creating a method called .eat by using the Person function and prototype syntax = to function and passing edible as a parameter.
+if(this.stomach.length < 10){
+  this.stomach.push(edible)
+  }
+// if the amount of edible is the array of stomach is less than 10 than .push (or add) edible to the stomach array.
+}
+
+Person.prototype.poop = function(){
+  this.stomach = [];
+// Here we create a method called .poop and say that when Person poops the .stomach array will be emptied
+
+// We want to create the empty array again within the function to overwrite the full array above when this method is ran.
+}
+
+Person.prototype.toString = function() {
+  return `Hello my name is ${this.name} and I am ${this.age} years old`
 }
 
 
@@ -36,8 +59,19 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car(model, mpg) {
+    this.model = model;
+    this.milesPerGallon = mpg;
+    this.tank = 0;
+    this.odometer = 0;
+}
 
+Car.prototype.fill = function(gallons) {
+    this.tank = this.tank + gallons;
+}
+
+Car.prototype.drive = function(distance) {
+    
 }
 
 
@@ -49,18 +83,33 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+  // to subClass is to .call another constructor function. You do this by using the name of the other name.call(this, param, param ect if needed) 
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
+// this constructor has inherited Persons attributes, name and age
 }
+// Baby method  =  new object ( Person method )
+Baby.prototype = Object.create(Person.prototype);
+// This syntax allows the Baby to inherit the Persons methods.
+
+
+// Baby.prototype.play is like saying nameofconstructorfunction.method.nameofmethod = function()
+Baby.prototype.play = function() {
+      return ` ${this.name} age ${3} likes to play with ${this.favoriteToy}`
+}
+
+
+
 
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window binding - is a global binding when .this has no context to grab, so it go to the global level.
+  2. implicit binding - comes from withing a object in a function and grabs from within the function. 
+  3. explicit binding has .call to bind a new object to a function.
+  4. new binding - is a type of function templet that can be used at a later time when declaring variables with different values.
 */
 
 ///////// END OF CHALLENGE /////////
